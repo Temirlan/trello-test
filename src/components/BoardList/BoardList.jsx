@@ -1,16 +1,19 @@
 import React from 'react';
-
-import Board from './Board/Board';
 import styles from './BoardList.module.css';
 
 const BoardList = props => {
-    const boards = props.boards.map(board => {
-        return <Board key={board.id} name={board.name} id={board.id} updateBoardName={props.updateBoardName}/>
-    })
+    const renderBoards = () => {
+        return props.boards.map(board => {
+            return React.cloneElement(props.renderBoard(board), {
+                key: board.id,
+                board
+            })
+        });
+    }
 
     return (
         <div className={styles.boardList}>
-            {boards}
+            {renderBoards()}
         </div>
     );
 }

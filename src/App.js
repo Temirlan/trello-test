@@ -1,6 +1,7 @@
 import React from 'react';
 import Popup from './components/Popup/Popup';
 import BoardList from './components/BoardList/BoardList';
+import Board from './components/BoardList/Board/Board';
 
 import './App.css';
 
@@ -47,7 +48,7 @@ class App extends React.Component {
   }
 
   updateBoardName = (name, id) => {
-    this.state.boards.map(board => {
+    const updateBoards = this.state.boards.map(board => {
       if (board.id === id) {
         return {
           id,
@@ -55,7 +56,11 @@ class App extends React.Component {
         }
       }
       return board;
-    })
+    });
+
+    this.setState(() => ({
+      boards: updateBoards
+    }));
   }
 
   render = () => {
@@ -66,6 +71,7 @@ class App extends React.Component {
           : <BoardList 
               userName={this.state.userName} 
               boards={this.state.boards}
+              renderBoard={board => <Board board={board} updateBoardName={this.updateBoardName}/>}
               updateBoardName={this.updateBoardName} /> }
       </div>
     );
