@@ -7,7 +7,7 @@ const BoardList = props => {
             return React.cloneElement(props.renderBoard(board), {
                 key: board.id,
                 board
-            })
+            });
         });
     }
 

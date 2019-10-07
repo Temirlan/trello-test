@@ -8,19 +8,32 @@ import './App.css';
 const boards = [
   {
     id: 1,
-    name: 'TODO'
+    name: 'TODO',
+    cards: [
+      {
+        id: 1,
+        name: 'create component'
+      },
+      {
+        id: 2,
+        name: 'create component'
+      }
+    ]
   },
   {
     id: 2,
-    name: 'In Progress'
+    name: 'In Progress',
+    cards: []
   },
   {
     id: 3,
-    name: 'Testing'
+    name: 'Testing',
+    cards: []
   },
   {
     id: 4,
-    name: 'Done'
+    name: 'Done',
+    cards: []
   }
 ]
 
@@ -52,7 +65,8 @@ class App extends React.Component {
       if (board.id === id) {
         return {
           id,
-          name
+          name,
+          cards: board.cards
         }
       }
       return board;
@@ -69,7 +83,7 @@ class App extends React.Component {
         { this.state.auth 
           ? <Popup setUserName={this.setUserName} setAuth={this.setAuth}/> 
           : <BoardList 
-              userName={this.state.userName} 
+              userName={this.state.userName}
               boards={this.state.boards}
               renderBoard={board => <Board board={board} updateBoardName={this.updateBoardName}/>}
               updateBoardName={this.updateBoardName} /> }
