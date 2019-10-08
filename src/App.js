@@ -79,12 +79,38 @@ class App extends React.Component {
     }));
   };
 
+  updateCardName = (name, idBoard, idCard) => {
+    let updateBoardCards = this.state.boards[idBoard - 1].cards.map(card => {
+      if (card.id === idCard) {
+        return {
+          ...card,
+          name
+        };
+      }
+      return card;
+    });
+
+    let updateBoard = this.state.boards.map(board => {
+      if (board.id === idBoard) {
+        board.cards = updateBoardCards;
+
+        return board;
+      }
+      return board;
+    });
+
+    this.setState({
+      boards: updateBoard
+    });
+  };
+
   addCard = (name, idBoard) => {
-    const size = this.state.boards[idBoard - 1].cards.length;
+    const cards = this.state.boards[idBoard - 1].cards;
+    const nextId = cards[cards.length - 1].id + 1;
     let boards = [...this.state.boards];
 
     boards[idBoard - 1].cards.push({
-      id: size + 1,
+      id: nextId,
       name,
       userName: this.state.userName
     });
@@ -116,7 +142,7 @@ class App extends React.Component {
   render = () => {
     return (
       <div className="App">
-        {!this.state.auth ? (
+        {this.state.auth ? (
           <Popup setUserName={this.setUserName} setAuth={this.setAuth} />
         ) : (
           <BoardList
@@ -126,11 +152,11 @@ class App extends React.Component {
               <Board
                 board={board}
                 updateBoardName={this.updateBoardName}
+                updateCardName={this.updateCardName}
                 addCard={this.addCard}
                 deleteCard={this.deleteCard}
               />
             )}
-            updateBoardName={this.updateBoardName}
           />
         )}
       </div>

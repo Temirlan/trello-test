@@ -17,6 +17,10 @@ class Board extends React.Component {
     this.props.updateBoardName(name, id);
   };
 
+  updateCardName = (name, idCard) => {
+    this.props.updateCardName(name, this.props.board.id, idCard);
+  };
+
   addCard = name => {
     this.props.addCard(name, this.props.board.id);
   };
@@ -37,7 +41,12 @@ class Board extends React.Component {
     return (
       <div className={styles.board}>
         <Title name={name} id={id} updateName={this.updateName} />
-        <CardList cards={cards} nameBoard={name} deleteCard={this.deleteCard} />
+        <CardList
+          cards={cards}
+          nameBoard={name}
+          deleteCard={this.deleteCard}
+          updateCardName={this.updateCardName}
+        />
         {!this.state.toggleAddCard && (
           <button onClick={this.handleCreateCard}>Create card</button>
         )}

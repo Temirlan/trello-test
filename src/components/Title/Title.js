@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./Title.module.css";
 
 class Title extends React.Component {
   constructor(props) {
@@ -39,7 +40,11 @@ class Title extends React.Component {
     const { updateText } = this.state;
     return (
       <div>
-        {!updateText && <p onClick={this.handleClick}>{this.props.name}</p>}
+        {!updateText && (
+          <p className={styles.title} onClick={this.handleClick}>
+            {this.props.name}
+          </p>
+        )}
         {updateText && (
           <input
             type="text"

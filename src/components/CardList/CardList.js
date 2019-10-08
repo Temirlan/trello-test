@@ -11,6 +11,7 @@ const CardList = props => {
         card={card}
         key={card.id}
         deleteCard={props.deleteCard}
+        updateCardName={props.updateCardName}
       />
     );
   });

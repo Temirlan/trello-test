@@ -1,20 +1,32 @@
 import React from "react";
-import { Modal } from "react-bootstrap";
+import Modal from "react-modal";
 import Title from "../Title/Title";
+import styles from "./ModalCard.module.css";
 
-class ModalWindow extends React.Component {
+const customStyles = {
+  content: {
+    top: "20%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    width: "500px",
+    transform: "translate(-50%, -50%)"
+  }
+};
+
+Modal.setAppElement("#root");
+
+class ModalCard extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      show: true
+      modalIsOpen: true
     };
   }
 
-  handleClose = () => {
-    this.setState({
-      show: false
-    });
+  closeModal = () => {
+    this.setState({ modalIsOpen: false });
     this.props.handleClick();
   };
 
@@ -22,21 +34,23 @@ class ModalWindow extends React.Component {
     const { name, userName } = this.props.card;
     return (
       <>
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>
-              <Title name={`${userName}: ${name}`} />
-              <p>Board: {this.props.nameBoard}</p>
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p>Description</p>
-            <p>Comments</p>
-          </Modal.Body>
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <div className={styles.modalHeader}>
+            {userName}:
+            <Title name={name} updateName={this.props.updateCardName} />
+            <button onClick={this.closeModal}>close</button>
+          </div>
+          <p>Description</p>
+          <p>Comments</p>
         </Modal>
       </>
     );
   }
 }
 
-export default ModalWindow;
+export default ModalCard;
