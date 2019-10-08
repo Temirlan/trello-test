@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import Title from "../Title/Title";
 
 class ModalWindow extends React.Component {
@@ -26,17 +26,13 @@ class ModalWindow extends React.Component {
           <Modal.Header closeButton>
             <Modal.Title>
               <Title name={`${userName}: ${name}`} />
+              <p>Board: {this.props.nameBoard}</p>
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={this.handleClose}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
+          <Modal.Body>
+            <p>Description</p>
+            <p>Comments</p>
+          </Modal.Body>
         </Modal>
       </>
     );

@@ -5,7 +5,14 @@ import styles from "./CardList.module.css";
 
 const CardList = props => {
   const cards = props.cards.map(card => {
-    return <Card card={card} key={card.id} />;
+    return (
+      <Card
+        nameBoard={props.nameBoard}
+        card={card}
+        key={card.id}
+        deleteCard={props.deleteCard}
+      />
+    );
   });
 
   return <div className={styles.cardList}>{cards}</div>;

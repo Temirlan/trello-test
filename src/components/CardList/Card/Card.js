@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Card.module.css";
-import ModalWindow from "../../Modal/ModalWindow";
+import ModalWindow from "../../ModalCard/ModalCard";
 
 class Card extends React.Component {
   constructor(props) {
@@ -17,6 +17,10 @@ class Card extends React.Component {
     }));
   };
 
+  handleDelete = () => {
+    this.props.deleteCard(this.props.card.id);
+  };
+
   render() {
     const { name, userName } = this.props.card;
 
@@ -26,8 +30,13 @@ class Card extends React.Component {
           {userName}: {name}
         </p>
         <button onClick={this.handleClick}>open</button>
+        <button onClick={this.handleDelete}>delete</button>
         {this.state.open && (
-          <ModalWindow card={this.props.card} handleClick={this.handleClick} />
+          <ModalWindow
+            nameBoard={this.props.nameBoard}
+            card={this.props.card}
+            handleClick={this.handleClick}
+          />
         )}
       </div>
     );

@@ -79,17 +79,56 @@ class App extends React.Component {
     }));
   };
 
+  addCard = (name, idBoard) => {
+    const size = this.state.boards[idBoard - 1].cards.length;
+    let boards = [...this.state.boards];
+
+    boards[idBoard - 1].cards.push({
+      id: size + 1,
+      name,
+      userName: this.state.userName
+    });
+
+    this.setState({
+      boards: [...boards]
+    });
+  };
+
+  deleteCard = (idBoard, idCard) => {
+    let filterCards = this.state.boards[idBoard - 1].cards.filter(
+      card => card.id !== idCard
+    );
+
+    let deleteBoardCards = this.state.boards.map(board => {
+      if (board.id === idBoard) {
+        board.cards = filterCards;
+
+        return board;
+      }
+      return board;
+    });
+
+    this.setState({
+      boards: deleteBoardCards
+    });
+  };
+
   render = () => {
     return (
       <div className="App">
-        {this.state.auth ? (
+        {!this.state.auth ? (
           <Popup setUserName={this.setUserName} setAuth={this.setAuth} />
         ) : (
           <BoardList
             userName={this.state.userName}
             boards={this.state.boards}
             renderBoard={board => (
-              <Board board={board} updateBoardName={this.updateBoardName} />
+              <Board
+                board={board}
+                updateBoardName={this.updateBoardName}
+                addCard={this.addCard}
+                deleteCard={this.deleteCard}
+              />
             )}
             updateBoardName={this.updateBoardName}
           />
