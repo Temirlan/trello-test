@@ -106,7 +106,13 @@ class App extends React.Component {
 
   addCard = (name, idBoard) => {
     const cards = this.state.boards[idBoard - 1].cards;
-    const nextId = cards[cards.length - 1].id + 1;
+
+    let nextId = 1;
+
+    if (cards.length) {
+      nextId = cards[cards.length - 1].id + 1;
+    }
+
     let boards = [...this.state.boards];
 
     boards[idBoard - 1].cards.push({

@@ -41,8 +41,10 @@ class ModalCard extends React.Component {
           contentLabel="Example Modal"
         >
           <div className={styles.modalHeader}>
-            {userName}:
-            <Title name={name} updateName={this.props.updateCardName} />
+            <div className={styles.modalTitle}>
+              {userName}:
+              <Title name={name} updateName={this.props.updateCardName} />
+            </div>
             <button onClick={this.closeModal}>close</button>
           </div>
           <p>Description</p>
