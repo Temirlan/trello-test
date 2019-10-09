@@ -8,6 +8,7 @@ const CardList = props => {
     return (
       <Card
         nameBoard={props.nameBoard}
+        addCardDescription={props.addCardDescription}
         card={card}
         key={card.id}
         deleteCard={props.deleteCard}

@@ -13,12 +13,14 @@ const boards = [
       {
         id: 1,
         name: "create component",
-        userName: "Temirlan"
+        userName: "Temirlan",
+        description: ""
       },
       {
         id: 2,
         name: "create css",
-        userName: "Temirlan"
+        userName: "Temirlan",
+        description: ""
       }
     ]
   },
@@ -118,7 +120,8 @@ class App extends React.Component {
     boards[idBoard - 1].cards.push({
       id: nextId,
       name,
-      userName: this.state.userName
+      userName: this.state.userName,
+      description: ""
     });
 
     this.setState({
@@ -145,6 +148,31 @@ class App extends React.Component {
     });
   };
 
+  addCardDescription = (text, idBoard, idCard) => {
+    let updateBoardCards = this.state.boards[idBoard - 1].cards.map(card => {
+      if (card.id === idCard) {
+        return {
+          ...card,
+          description: text
+        };
+      }
+      return card;
+    });
+
+    let updateBoard = this.state.boards.map(board => {
+      if (board.id === idBoard) {
+        board.cards = updateBoardCards;
+
+        return board;
+      }
+      return board;
+    });
+
+    this.setState({
+      boards: updateBoard
+    });
+  };
+
   render = () => {
     return (
       <div className="App">
@@ -161,6 +189,7 @@ class App extends React.Component {
                 updateCardName={this.updateCardName}
                 addCard={this.addCard}
                 deleteCard={this.deleteCard}
+                addCardDescription={this.addCardDescription}
               />
             )}
           />

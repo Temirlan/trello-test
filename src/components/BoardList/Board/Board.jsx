@@ -21,6 +21,10 @@ class Board extends React.Component {
     this.props.updateCardName(name, this.props.board.id, idCard);
   };
 
+  addCardDescription = (text, idCard) => {
+    this.props.addCardDescription(text, this.props.board.id, idCard);
+  };
+
   addCard = name => {
     this.props.addCard(name, this.props.board.id);
   };
@@ -46,6 +50,7 @@ class Board extends React.Component {
           nameBoard={name}
           deleteCard={this.deleteCard}
           updateCardName={this.updateCardName}
+          addCardDescription={this.addCardDescription}
         />
         {!this.state.toggleAddCard && (
           <button onClick={this.handleCreateCard}>Create card</button>
