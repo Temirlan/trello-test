@@ -25,7 +25,14 @@ class ModalCard extends React.Component {
     this.state = {
       modalIsOpen: true
     };
+
+    this.modal = React.createRef();
   }
+
+  componentDidUpdate = () => {
+    // this.modal.current.node.firstElementChild.firstElementChild.focus();
+    this.modal.current.focus();
+  };
 
   closeModal = () => {
     this.setState({ modalIsOpen: false });
@@ -48,7 +55,9 @@ class ModalCard extends React.Component {
               {userName}:
               <Title name={name} updateName={this.props.updateCardName} />
             </div>
-            <button onClick={this.closeModal}>close</button>
+            <button ref={this.modal} onClick={this.closeModal}>
+              close
+            </button>
           </div>
           <ModalCardDescription
             description={description}
