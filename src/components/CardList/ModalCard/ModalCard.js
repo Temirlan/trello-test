@@ -3,7 +3,6 @@ import Modal from "react-modal";
 import Title from "../../Title/Title";
 import styles from "./ModalCard.module.css";
 import ModalCardDescription from "./ModalCardDescription/ModalCardDescription";
-import ReactDOM from "react-dom";
 
 const customStyles = {
   content: {
@@ -25,13 +24,10 @@ class ModalCard extends React.Component {
     this.state = {
       modalIsOpen: true
     };
-
-    this.modal = React.createRef();
   }
 
   componentDidUpdate = () => {
-    // this.modal.current.node.firstElementChild.firstElementChild.focus();
-    this.modal.current.focus();
+    this.contentRef.focus();
   };
 
   closeModal = () => {
@@ -49,15 +45,14 @@ class ModalCard extends React.Component {
           onRequestClose={this.closeModal}
           style={customStyles}
           contentLabel="Card Modal"
+          contentRef={node => (this.contentRef = node)}
         >
           <div className={styles.modalHeader}>
             <div className={styles.modalTitle}>
               {userName}:
               <Title name={name} updateName={this.props.updateCardName} />
             </div>
-            <button ref={this.modal} onClick={this.closeModal}>
-              close
-            </button>
+            <button onClick={this.closeModal}>close</button>
           </div>
           <ModalCardDescription
             description={description}
