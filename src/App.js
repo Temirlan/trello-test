@@ -82,94 +82,99 @@ class App extends React.Component {
   };
 
   updateCardName = (name, idBoard, idCard) => {
-    let updateBoardCards = this.state.boards[idBoard - 1].cards.map(card => {
-      if (card.id === idCard) {
+    const updatedBoards = this.state.boards.map(board => {
+      if (board.id === idBoard) {
         return {
-          ...card,
-          name
+          ...board,
+          cards: board.cards.map(card => {
+            if (card.id === idCard) {
+              return {
+                ...card,
+                name
+              };
+            }
+            return card;
+          })
         };
       }
-      return card;
-    });
 
-    let updateBoard = this.state.boards.map(board => {
-      if (board.id === idBoard) {
-        board.cards = updateBoardCards;
-
-        return board;
-      }
       return board;
     });
 
     this.setState({
-      boards: updateBoard
+      boards: updatedBoards
     });
   };
 
   addCard = (name, idBoard) => {
-    const cards = this.state.boards[idBoard - 1].cards;
+    const updatedBoards = this.state.boards.map(board => {
+      if (board.id === idBoard) {
+        let nextId = 1;
+        const lengthCard = board.cards.length;
 
-    let nextId = 1;
+        if (lengthCard) {
+          nextId = board.cards[lengthCard - 1].id + 1;
+        }
 
-    if (cards.length) {
-      nextId = cards[cards.length - 1].id + 1;
-    }
-
-    let boards = [...this.state.boards];
-
-    boards[idBoard - 1].cards.push({
-      id: nextId,
-      name,
-      userName: this.state.userName,
-      description: ""
+        return {
+          ...board,
+          cards: [
+            ...board.cards,
+            {
+              id: nextId,
+              name,
+              userName: this.state.userName,
+              description: ""
+            }
+          ]
+        };
+      }
+      return board;
     });
 
     this.setState({
-      boards: [...boards]
+      boards: updatedBoards
     });
   };
 
   deleteCard = (idBoard, idCard) => {
-    let filterCards = this.state.boards[idBoard - 1].cards.filter(
-      card => card.id !== idCard
-    );
-
-    let deleteBoardCards = this.state.boards.map(board => {
+    let deletedBoards = this.state.boards.map(board => {
       if (board.id === idBoard) {
-        board.cards = filterCards;
-
-        return board;
+        return {
+          ...board,
+          cards: board.cards.filter(card => card.id !== idCard)
+        };
       }
       return board;
     });
 
     this.setState({
-      boards: deleteBoardCards
+      boards: deletedBoards
     });
   };
 
   addCardDescription = (text, idBoard, idCard) => {
-    let updateBoardCards = this.state.boards[idBoard - 1].cards.map(card => {
-      if (card.id === idCard) {
+    let updatedBoards = this.state.boards.map(board => {
+      if (board.id === idBoard) {
         return {
-          ...card,
-          description: text
+          ...board,
+          cards: board.cards.map(card => {
+            if (card.id === idCard) {
+              return {
+                ...card,
+                description: text
+              };
+            }
+            return card;
+          })
         };
       }
-      return card;
-    });
 
-    let updateBoard = this.state.boards.map(board => {
-      if (board.id === idBoard) {
-        board.cards = updateBoardCards;
-
-        return board;
-      }
       return board;
     });
 
     this.setState({
-      boards: updateBoard
+      boards: updatedBoards
     });
   };
 
