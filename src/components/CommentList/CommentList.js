@@ -1,24 +1,21 @@
 import React from "react";
 
-import Comment from "./Comment/Comment";
 import styles from "./CommentList.module.css";
 
 const CommentList = props => {
-  const comments = props.comments.map(comment => {
-    return (
-      <Comment
-        key={comment.id}
-        comment={comment}
-        updateCommentCard={props.updateCommentCard}
-        deleteCommentCard={props.deleteCommentCard}
-      />
-    );
-  });
+  const renderComment = () => {
+    return props.comments.map(comment => {
+      return React.cloneElement(props.renderComment(comment), {
+        key: comment.id,
+        comment
+      });
+    });
+  };
 
   return (
     <div className={styles.commentList}>
       <p>Comments</p>
-      {comments}
+      {renderComment()}
     </div>
   );
 };

@@ -5,6 +5,13 @@ import Board from "./components/BoardList/Board/Board";
 import { InitialBoards } from "./service/boards";
 
 import "./App.css";
+import Card from "./components/CardList/Card/Card";
+import CardList from "./components/CardList/CardList";
+import ModalCard from "./components/CardList/ModalCard/ModalCard";
+import CardDescription from "./components/CardList/ModalCard/CardDescription/CardDescription";
+import CardComment from "./components/CardList/ModalCard/CardComment/CardComment";
+import CommentList from "./components/CommentList/CommentList";
+import Comment from "./components/CommentList/Comment/Comment";
 
 class App extends React.Component {
   constructor(props) {
@@ -281,14 +288,76 @@ class App extends React.Component {
             renderBoard={board => (
               <Board
                 board={board}
-                updateBoardName={this.updateBoardName}
-                updateCardName={this.updateCardName}
-                addCard={this.addCard}
-                deleteCard={this.deleteCard}
-                addCardDescription={this.addCardDescription}
-                addCommentCard={this.addCommentCard}
-                updateCommentCard={this.updateCommentCard}
-                deleteCommentCard={this.deleteCommentCard}
+                updateBoardName={name => this.updateBoardName(name, board.id)}
+                addCard={name => this.addCard(name, board.id)}
+                renderCardList={cards => (
+                  <CardList
+                    cards={cards}
+                    renderCard={card => (
+                      <Card
+                        card={card}
+                        deleteCard={() => this.deleteCard(board.id, card.id)}
+                        renderModalCard={() => (
+                          <ModalCard
+                            card={card}
+                            updateCardName={name =>
+                              this.updateCardName(name, board.id, card.id)
+                            }
+                            renderCardDescription={description => (
+                              <CardDescription
+                                description={description}
+                                addCardDescription={text =>
+                                  this.addCardDescription(
+                                    text,
+                                    board.id,
+                                    card.id
+                                  )
+                                }
+                              />
+                            )}
+                            renderCardComment={comments => (
+                              <CardComment
+                                userName={this.state.userName}
+                                addCommentCard={textComment =>
+                                  this.addCommentCard(
+                                    textComment,
+                                    board.id,
+                                    card.id
+                                  )
+                                }
+                                renderCommentList={() => (
+                                  <CommentList
+                                    comments={comments}
+                                    renderComment={comment => (
+                                      <Comment
+                                        comment={comment}
+                                        updateCommentCard={changeTextComent =>
+                                          this.updateCommentCard(
+                                            changeTextComent,
+                                            board.id,
+                                            card.id,
+                                            comment.id
+                                          )
+                                        }
+                                        deleteCommentCard={() =>
+                                          this.deleteCommentCard(
+                                            board.id,
+                                            card.id,
+                                            comment.id
+                                          )
+                                        }
+                                      />
+                                    )}
+                                  />
+                                )}
+                              />
+                            )}
+                          />
+                        )}
+                      />
+                    )}
+                  />
+                )}
               />
             )}
           />

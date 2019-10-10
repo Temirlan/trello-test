@@ -1,7 +1,5 @@
 import React from "react";
 import styles from "./CardComment.module.css";
-import TextArea from "../../../TextArea/TextArea";
-import CommentList from "../../../CommentList/CommentList";
 import AddComment from "../../../CommentList/AddComment/AddComment";
 
 class CardComment extends React.Component {
@@ -32,6 +30,10 @@ class CardComment extends React.Component {
     this.props.addCommentCard(this.state.textComment);
   };
 
+  renderCommentList = () => {
+    return React.cloneElement(this.props.renderCommentList());
+  };
+
   render = () => {
     return (
       <div>
@@ -52,11 +54,7 @@ class CardComment extends React.Component {
             />
           )}
         </div>
-        <CommentList
-          comments={this.props.comments}
-          updateCommentCard={this.props.updateCommentCard}
-          deleteCommentCard={this.props.deleteCommentCard}
-        />
+        {this.renderCommentList()}
       </div>
     );
   };

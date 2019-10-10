@@ -32,7 +32,7 @@ class Title extends React.Component {
   };
 
   handleUpdateName = () => {
-    this.props.updateName(this.state.name, this.props.id);
+    this.props.updateName(this.state.name);
     this.handleClick();
   };
 

@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./Card.module.css";
-import ModalCard from "../ModalCard/ModalCard";
 
 class Card extends React.Component {
   constructor(props) {
@@ -17,28 +16,14 @@ class Card extends React.Component {
     }));
   };
 
-  updateCardName = name => {
-    this.props.updateCardName(name, this.props.card.id);
-  };
-
-  addCardDescription = text => {
-    this.props.addCardDescription(text, this.props.card.id);
-  };
-
-  addCommentCard = textComment => {
-    this.props.addCommentCard(textComment, this.props.card.id);
-  };
-
-  updateCommentCard = (textComment, idComment) => {
-    this.props.updateCommentCard(textComment, this.props.card.id, idComment);
-  };
-
-  deleteCommentCard = idComment => {
-    this.props.deleteCommentCard(this.props.card.id, idComment);
-  };
-
   handleDelete = () => {
-    this.props.deleteCard(this.props.card.id);
+    this.props.deleteCard();
+  };
+
+  renderModalCard = () => {
+    return React.cloneElement(this.props.renderModalCard(), {
+      handleClick: this.handleClick
+    });
   };
 
   render() {
@@ -52,19 +37,7 @@ class Card extends React.Component {
           </p>
           <button onClick={this.handleDelete}>delete</button>
         </div>
-        {this.state.open && (
-          <ModalCard
-            nameBoard={this.props.nameBoard}
-            addCardDescription={this.addCardDescription}
-            card={this.props.card}
-            handleClick={this.handleClick}
-            updateCardName={this.updateCardName}
-            addCommentCard={this.addCommentCard}
-            updateCommentCard={this.updateCommentCard}
-            deleteCommentCard={this.deleteCommentCard}
-            userName={this.props.userName}
-          />
-        )}
+        {this.state.open && <>{this.renderModalCard()}</>}
       </div>
     );
   }

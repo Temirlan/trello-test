@@ -28,14 +28,11 @@ class Comment extends React.Component {
   handleUpdateComment = () => {
     this.handleToggleChangeComment();
 
-    this.props.updateCommentCard(
-      this.state.changeTextComent,
-      this.props.comment.id
-    );
+    this.props.updateCommentCard(this.state.changeTextComent);
   };
 
   handleDeleteComment = () => {
-    this.props.deleteCommentCard(this.props.comment.id);
+    this.props.deleteCommentCard();
   };
 
   render = () => {

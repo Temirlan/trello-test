@@ -2,8 +2,6 @@ import React from "react";
 import Modal from "react-modal";
 import Title from "../../Title/Title";
 import styles from "./ModalCard.module.css";
-import CardDescription from "./CardDescription/CardDescription";
-import CardComment from "./CardComment/CardComment";
 
 const customStyles = {
   content: {
@@ -39,6 +37,18 @@ class ModalCard extends React.Component {
     this.props.handleClick();
   };
 
+  renderCardDescription = description => {
+    return React.cloneElement(this.props.renderCardDescription(), {
+      description
+    });
+  };
+
+  renderCardComment = comments => {
+    return React.cloneElement(this.props.renderCardComment(comments), {
+      comments
+    });
+  };
+
   render() {
     const { name, userName, description, comments } = this.props.card;
     return (
@@ -57,17 +67,8 @@ class ModalCard extends React.Component {
             </div>
             <button onClick={this.closeModal}>close</button>
           </div>
-          <CardDescription
-            description={description}
-            addCardDescription={this.props.addCardDescription}
-          />
-          <CardComment
-            comments={comments}
-            addCommentCard={this.props.addCommentCard}
-            updateCommentCard={this.props.updateCommentCard}
-            deleteCommentCard={this.props.deleteCommentCard}
-            userName={this.props.userName}
-          />
+          {this.renderCardDescription(description)}
+          {this.renderCardComment(comments)}
         </Modal>
       </>
     );

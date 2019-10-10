@@ -1,27 +1,18 @@
 import React from "react";
 
-import Card from "./Card/Card";
 import styles from "./CardList.module.css";
 
 const CardList = props => {
-  const cards = props.cards.map(card => {
-    return (
-      <Card
-        nameBoard={props.nameBoard}
-        addCardDescription={props.addCardDescription}
-        card={card}
-        key={card.id}
-        deleteCard={props.deleteCard}
-        updateCardName={props.updateCardName}
-        addCommentCard={props.addCommentCard}
-        updateCommentCard={props.updateCommentCard}
-        deleteCommentCard={props.deleteCommentCard}
-        userName={props.userName}
-      />
-    );
-  });
+  const renderCard = () => {
+    return props.cards.map(card => {
+      return React.cloneElement(props.renderCard(card), {
+        key: card.id,
+        card
+      });
+    });
+  };
 
-  return <div className={styles.cardList}>{cards}</div>;
+  return <div className={styles.cardList}>{renderCard()}</div>;
 };
 
 export default CardList;
