@@ -14,13 +14,26 @@ const boards = [
         id: 1,
         name: "create component",
         userName: "Temirlan",
-        description: ""
+        description: "",
+        comments: [
+          {
+            id: 2,
+            name: "Temirlan",
+            text: "Привет"
+          },
+          {
+            id: 1,
+            name: "Temirlan",
+            text: "Как продвижении?"
+          }
+        ]
       },
       {
         id: 2,
         name: "create css",
         userName: "Temirlan",
-        description: ""
+        description: "",
+        comments: []
       }
     ]
   },
@@ -124,7 +137,8 @@ class App extends React.Component {
               id: nextId,
               name,
               userName: this.state.userName,
-              description: ""
+              description: "",
+              comments: []
             }
           ]
         };
@@ -178,10 +192,47 @@ class App extends React.Component {
     });
   };
 
+  addCommentCard = (textComment, idBoard, idCard) => {
+    const updatedBoards = this.state.boards.map(board => {
+      if (board.id === idBoard) {
+        return {
+          ...board,
+          cards: board.cards.map(card => {
+            if (card.id === idCard) {
+              let nextId = 1;
+
+              if (card.comments.length) {
+                nextId = card.comments[0].id + 1;
+              }
+
+              return {
+                ...card,
+                comments: [
+                  {
+                    id: nextId,
+                    name: this.state.userName,
+                    text: textComment
+                  },
+                  ...card.comments
+                ]
+              };
+            }
+            return card;
+          })
+        };
+      }
+      return board;
+    });
+
+    this.setState({
+      boards: updatedBoards
+    });
+  };
+
   render = () => {
     return (
       <div className="App">
-        {this.state.auth ? (
+        {!this.state.auth ? (
           <Popup setUserName={this.setUserName} setAuth={this.setAuth} />
         ) : (
           <BoardList
@@ -195,6 +246,7 @@ class App extends React.Component {
                 addCard={this.addCard}
                 deleteCard={this.deleteCard}
                 addCardDescription={this.addCardDescription}
+                addCommentCard={this.addCommentCard}
               />
             )}
           />

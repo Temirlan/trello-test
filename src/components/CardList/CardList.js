@@ -13,6 +13,7 @@ const CardList = props => {
         key={card.id}
         deleteCard={props.deleteCard}
         updateCardName={props.updateCardName}
+        addCommentCard={props.addCommentCard}
       />
     );
   });

@@ -2,16 +2,19 @@ import React from "react";
 import Modal from "react-modal";
 import Title from "../../Title/Title";
 import styles from "./ModalCard.module.css";
-import ModalCardDescription from "./ModalCardDescription/ModalCardDescription";
+import CardDescription from "./CardDescription/CardDescription";
+import CardComment from "./CardComment/CardComment";
 
 const customStyles = {
   content: {
-    top: "20%",
+    top: "50%",
     left: "50%",
     right: "auto",
     bottom: "auto",
     width: "500px",
-    transform: "translate(-50%, -50%)"
+    height: "80vh",
+    transform: "translate(-50%, -50%)",
+    overflowY: "scroll"
   }
 };
 
@@ -37,7 +40,7 @@ class ModalCard extends React.Component {
   };
 
   render() {
-    const { name, userName, description } = this.props.card;
+    const { name, userName, description, comments } = this.props.card;
     return (
       <>
         <Modal
@@ -54,11 +57,14 @@ class ModalCard extends React.Component {
             </div>
             <button onClick={this.closeModal}>close</button>
           </div>
-          <ModalCardDescription
+          <CardDescription
             description={description}
             addCardDescription={this.props.addCardDescription}
           />
-          <p>Comments</p>
+          <CardComment
+            comments={comments}
+            addCommentCard={this.props.addCommentCard}
+          />
         </Modal>
       </>
     );

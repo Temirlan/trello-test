@@ -1,0 +1,18 @@
+.comment {
+    display: flex;
+}
+
+.commentUserName {
+    padding-right: 30px
+}
+
+.commentText {
+    padding: 5px;
+    background-color: lightcyan;
+}
+
+.commentActionButtons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}

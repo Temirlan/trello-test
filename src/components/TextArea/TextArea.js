@@ -24,6 +24,7 @@ class TextArea extends React.Component {
     return (
       <div>
         <textarea
+          placeholder={this.props.placeholder}
           value={this.state.text}
           onChange={this.handleChange}
           onBlur={this.props.handleText}

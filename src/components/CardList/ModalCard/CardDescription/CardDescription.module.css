@@ -1,6 +1,7 @@
 .addDescription {
   background-color: lightcyan;
   padding: 5px;
+  word-wrap: break-word;
 }
 
 .addDescription:hover {

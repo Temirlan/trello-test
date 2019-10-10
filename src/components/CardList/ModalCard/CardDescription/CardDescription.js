@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./ModalCardDescription.module.css";
+import styles from "./CardDescription.module.css";
 import TextArea from "../../../TextArea/TextArea";
 
-class ModalCardDescription extends React.Component {
+class CardDescription extends React.Component {
   constructor(props) {
     super(props);
 
@@ -57,4 +57,4 @@ class ModalCardDescription extends React.Component {
   }
 }
 
-export default ModalCardDescription;
+export default CardDescription;

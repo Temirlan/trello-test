@@ -33,6 +33,10 @@ class Board extends React.Component {
     this.props.deleteCard(this.props.board.id, idCard);
   };
 
+  addCommentCard = (textComment, idCard) => {
+    this.props.addCommentCard(textComment, this.props.board.id, idCard);
+  };
+
   handleCreateCard = () => {
     this.setState({
       toggleAddCard: true
@@ -51,6 +55,7 @@ class Board extends React.Component {
           deleteCard={this.deleteCard}
           updateCardName={this.updateCardName}
           addCardDescription={this.addCardDescription}
+          addCommentCard={this.addCommentCard}
         />
         {!this.state.toggleAddCard && (
           <button onClick={this.handleCreateCard}>Create card</button>
