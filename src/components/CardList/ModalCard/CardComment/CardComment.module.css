@@ -17,9 +17,3 @@
 .writeComment:hover {
     cursor: pointer;
 }
-
-.addComment {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}

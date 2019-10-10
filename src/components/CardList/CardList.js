@@ -14,6 +14,9 @@ const CardList = props => {
         deleteCard={props.deleteCard}
         updateCardName={props.updateCardName}
         addCommentCard={props.addCommentCard}
+        updateCommentCard={props.updateCommentCard}
+        deleteCommentCard={props.deleteCommentCard}
+        userName={props.userName}
       />
     );
   });

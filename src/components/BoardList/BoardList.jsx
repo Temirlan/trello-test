@@ -6,7 +6,8 @@ const BoardList = props => {
     return props.boards.map(board => {
       return React.cloneElement(props.renderBoard(board), {
         key: board.id,
-        board
+        board,
+        userName: props.userName
       });
     });
   };

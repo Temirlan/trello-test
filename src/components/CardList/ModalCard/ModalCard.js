@@ -64,6 +64,9 @@ class ModalCard extends React.Component {
           <CardComment
             comments={comments}
             addCommentCard={this.props.addCommentCard}
+            updateCommentCard={this.props.updateCommentCard}
+            deleteCommentCard={this.props.deleteCommentCard}
+            userName={this.props.userName}
           />
         </Modal>
       </>

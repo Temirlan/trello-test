@@ -2,57 +2,9 @@ import React from "react";
 import Popup from "./components/Popup/Popup";
 import BoardList from "./components/BoardList/BoardList";
 import Board from "./components/BoardList/Board/Board";
+import { InitialBoards } from "./service/boards";
 
 import "./App.css";
-
-const boards = [
-  {
-    id: 1,
-    name: "TODO",
-    cards: [
-      {
-        id: 1,
-        name: "create component",
-        userName: "Temirlan",
-        description: "",
-        comments: [
-          {
-            id: 2,
-            name: "Temirlan",
-            text: "Привет"
-          },
-          {
-            id: 1,
-            name: "Temirlan",
-            text: "Как продвижении?"
-          }
-        ]
-      },
-      {
-        id: 2,
-        name: "create css",
-        userName: "Temirlan",
-        description: "",
-        comments: []
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: "In Progress",
-    cards: []
-  },
-  {
-    id: 3,
-    name: "Testing",
-    cards: []
-  },
-  {
-    id: 4,
-    name: "Done",
-    cards: []
-  }
-];
 
 class App extends React.Component {
   constructor(props) {
@@ -61,9 +13,23 @@ class App extends React.Component {
     this.state = {
       userName: "",
       auth: false,
-      boards
+      boards: []
     };
   }
+
+  componentDidMount = () => {
+    const localBoards = localStorage.getItem("boards");
+
+    if (localBoards) {
+      this.setState({
+        boards: JSON.parse(localBoards)
+      });
+    } else {
+      this.setState({
+        boards: InitialBoards
+      });
+    }
+  };
 
   setUserName = userName => {
     this.setState({
@@ -92,6 +58,8 @@ class App extends React.Component {
     this.setState(() => ({
       boards: updateBoards
     }));
+
+    localStorage.setItem("boards", JSON.stringify(updateBoards));
   };
 
   updateCardName = (name, idBoard, idCard) => {
@@ -117,6 +85,8 @@ class App extends React.Component {
     this.setState({
       boards: updatedBoards
     });
+
+    localStorage.setItem("boards", JSON.stringify(updatedBoards));
   };
 
   addCard = (name, idBoard) => {
@@ -149,6 +119,8 @@ class App extends React.Component {
     this.setState({
       boards: updatedBoards
     });
+
+    localStorage.setItem("boards", JSON.stringify(updatedBoards));
   };
 
   deleteCard = (idBoard, idCard) => {
@@ -165,10 +137,12 @@ class App extends React.Component {
     this.setState({
       boards: deletedBoards
     });
+
+    localStorage.setItem("boards", JSON.stringify(deletedBoards));
   };
 
   addCardDescription = (text, idBoard, idCard) => {
-    let updatedBoards = this.state.boards.map(board => {
+    const updatedBoards = this.state.boards.map(board => {
       if (board.id === idBoard) {
         return {
           ...board,
@@ -190,6 +164,8 @@ class App extends React.Component {
     this.setState({
       boards: updatedBoards
     });
+
+    localStorage.setItem("boards", JSON.stringify(updatedBoards));
   };
 
   addCommentCard = (textComment, idBoard, idCard) => {
@@ -227,6 +203,70 @@ class App extends React.Component {
     this.setState({
       boards: updatedBoards
     });
+
+    localStorage.setItem("boards", JSON.stringify(updatedBoards));
+  };
+
+  updateCommentCard = (textComment, idBoard, idCard, idComment) => {
+    const updatedBoards = this.state.boards.map(board => {
+      if (board.id === idBoard) {
+        return {
+          ...board,
+          cards: board.cards.map(card => {
+            if (card.id === idCard) {
+              return {
+                ...card,
+                comments: card.comments.map(comment => {
+                  if (comment.id === idComment) {
+                    return {
+                      ...comment,
+                      text: textComment
+                    };
+                  }
+                  return comment;
+                })
+              };
+            }
+            return card;
+          })
+        };
+      }
+      return board;
+    });
+
+    this.setState({
+      boards: updatedBoards
+    });
+
+    localStorage.setItem("boards", JSON.stringify(updatedBoards));
+  };
+
+  deleteCommentCard = (idBoard, idCard, idComment) => {
+    const updatedBoards = this.state.boards.map(board => {
+      if (board.id === idBoard) {
+        return {
+          ...board,
+          cards: board.cards.map(card => {
+            if (card.id === idCard) {
+              return {
+                ...card,
+                comments: card.comments.filter(
+                  comment => comment.id !== idComment
+                )
+              };
+            }
+            return card;
+          })
+        };
+      }
+      return board;
+    });
+
+    this.setState({
+      boards: updatedBoards
+    });
+
+    localStorage.setItem("boards", JSON.stringify(updatedBoards));
   };
 
   render = () => {
@@ -247,6 +287,8 @@ class App extends React.Component {
                 deleteCard={this.deleteCard}
                 addCardDescription={this.addCardDescription}
                 addCommentCard={this.addCommentCard}
+                updateCommentCard={this.updateCommentCard}
+                deleteCommentCard={this.deleteCommentCard}
               />
             )}
           />

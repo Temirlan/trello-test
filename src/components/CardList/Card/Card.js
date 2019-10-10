@@ -29,6 +29,14 @@ class Card extends React.Component {
     this.props.addCommentCard(textComment, this.props.card.id);
   };
 
+  updateCommentCard = (textComment, idComment) => {
+    this.props.updateCommentCard(textComment, this.props.card.id, idComment);
+  };
+
+  deleteCommentCard = idComment => {
+    this.props.deleteCommentCard(this.props.card.id, idComment);
+  };
+
   handleDelete = () => {
     this.props.deleteCard(this.props.card.id);
   };
@@ -52,6 +60,9 @@ class Card extends React.Component {
             handleClick={this.handleClick}
             updateCardName={this.updateCardName}
             addCommentCard={this.addCommentCard}
+            updateCommentCard={this.updateCommentCard}
+            deleteCommentCard={this.deleteCommentCard}
+            userName={this.props.userName}
           />
         )}
       </div>

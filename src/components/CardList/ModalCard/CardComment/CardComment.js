@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./CardComment.module.css";
 import TextArea from "../../../TextArea/TextArea";
 import CommentList from "../../../CommentList/CommentList";
+import AddComment from "../../../CommentList/AddComment/AddComment";
 
 class CardComment extends React.Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class CardComment extends React.Component {
     return (
       <div>
         <div className={styles.cardAddComment}>
-          <div className={styles.name}>Temirlan: </div>
+          <div className={styles.name}>{this.props.userName}: </div>
           {!this.state.toggleAddComment && (
             <div
               onClick={this.handleToggleAddComment}
@@ -45,16 +46,17 @@ class CardComment extends React.Component {
             </div>
           )}
           {this.state.toggleAddComment && (
-            <div className={styles.addComment}>
-              <TextArea
-                placeholder="Write a comment..."
-                setText={this.setTextComment}
-              />
-              <button onClick={this.handleAddComment}>Save</button>
-            </div>
+            <AddComment
+              setText={this.setTextComment}
+              handleAddComment={this.handleAddComment}
+            />
           )}
         </div>
-        <CommentList comments={this.props.comments} />
+        <CommentList
+          comments={this.props.comments}
+          updateCommentCard={this.props.updateCommentCard}
+          deleteCommentCard={this.props.deleteCommentCard}
+        />
       </div>
     );
   };

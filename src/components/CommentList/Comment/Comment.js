@@ -1,8 +1,43 @@
 import React from "react";
 
 import styles from "./Comment.module.css";
+import AddComment from "../AddComment/AddComment";
 
 class Comment extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      toggleChangeComment: false,
+      changeTextComent: this.props.comment.text
+    };
+  }
+
+  handleToggleChangeComment = () => {
+    this.setState(state => ({
+      toggleChangeComment: !state.toggleChangeComment
+    }));
+  };
+
+  setChangeTextComent = text => {
+    this.setState({
+      changeTextComent: text
+    });
+  };
+
+  handleUpdateComment = () => {
+    this.handleToggleChangeComment();
+
+    this.props.updateCommentCard(
+      this.state.changeTextComent,
+      this.props.comment.id
+    );
+  };
+
+  handleDeleteComment = () => {
+    this.props.deleteCommentCard(this.props.comment.id);
+  };
+
   render = () => {
     return (
       <div>
@@ -10,12 +45,23 @@ class Comment extends React.Component {
           <div className={styles.commentUserName}>
             {this.props.comment.name}:
           </div>
-          <div className={styles.commentText}>{this.props.comment.text}</div>
+          {!this.state.toggleChangeComment && (
+            <div className={styles.commentText}>{this.props.comment.text}</div>
+          )}
+          {this.state.toggleChangeComment && (
+            <AddComment
+              text={this.props.comment.text}
+              setText={this.setChangeTextComent}
+              handleAddComment={this.handleUpdateComment}
+            />
+          )}
         </div>
-        <div className={styles.commentActionButtons}>
-          <button>Change</button>
-          <button>Delete</button>
-        </div>
+        {!this.state.toggleChangeComment && (
+          <div className={styles.commentActionButtons}>
+            <button onClick={this.handleToggleChangeComment}>Change</button>
+            <button onClick={this.handleDeleteComment}>Delete</button>
+          </div>
+        )}
       </div>
     );
   };
