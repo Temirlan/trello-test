@@ -1,5 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import styles from "./CardDescription.module.css";
+
 import TextArea from "../../../TextArea/TextArea";
 
 class CardDescription extends React.Component {
@@ -56,5 +59,10 @@ class CardDescription extends React.Component {
     );
   }
 }
+
+CardDescription.propTypes = {
+  description: PropTypes.string,
+  addCardDescription: PropTypes.func.isRequired
+};
 
 export default CardDescription;

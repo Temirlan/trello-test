@@ -1,6 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import styles from "./AddComment.module.css";
+
 import TextArea from "../../TextArea/TextArea";
 
 class AddComment extends React.Component {
@@ -17,5 +19,11 @@ class AddComment extends React.Component {
     );
   };
 }
+
+AddComment.propTypes = {
+  text: PropTypes.string,
+  setText: PropTypes.func.isRequired,
+  handleAddComment: PropTypes.func.isRequired
+};
 
 export default AddComment;

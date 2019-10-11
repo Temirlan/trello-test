@@ -1,5 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Modal from "react-modal";
+
 import Title from "../../Title/Title";
 import styles from "./ModalCard.module.css";
 
@@ -74,5 +76,12 @@ class ModalCard extends React.Component {
     );
   }
 }
+
+ModalCard.propTypes = {
+  card: PropTypes.object.isRequired,
+  updateCardName: PropTypes.func.isRequired,
+  renderCardDescription: PropTypes.func.isRequired,
+  renderCardComment: PropTypes.func.isRequired
+};
 
 export default ModalCard;

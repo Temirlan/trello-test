@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import styles from "./CommentList.module.css";
 
@@ -18,6 +19,11 @@ const CommentList = props => {
       {renderComment()}
     </div>
   );
+};
+
+CommentList.propTypes = {
+  comments: PropTypes.array.isRequired,
+  renderComment: PropTypes.func.isRequired
 };
 
 export default CommentList;

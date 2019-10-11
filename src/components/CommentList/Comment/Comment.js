@@ -1,6 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import styles from "./Comment.module.css";
+
 import AddComment from "../AddComment/AddComment";
 
 class Comment extends React.Component {
@@ -63,5 +65,11 @@ class Comment extends React.Component {
     );
   };
 }
+
+Comment.propTypes = {
+  comment: PropTypes.object.isRequired,
+  updateCommentCard: PropTypes.func.isRequired,
+  deleteCommentCard: PropTypes.func.isRequired
+};
 
 export default Comment;

@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import styles from "./BoardList.module.css";
 
 const BoardList = props => {
@@ -13,6 +15,12 @@ const BoardList = props => {
   };
 
   return <div className={styles.boardList}>{renderBoards()}</div>;
+};
+
+BoardList.propTypes = {
+  userName: PropTypes.string.isRequired,
+  boards: PropTypes.array.isRequired,
+  renderBoard: PropTypes.func.isRequired
 };
 
 export default BoardList;

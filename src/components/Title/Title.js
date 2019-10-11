@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import styles from "./Title.module.css";
 
 class Title extends React.Component {
@@ -58,5 +60,10 @@ class Title extends React.Component {
     );
   };
 }
+
+Title.propTypes = {
+  value: PropTypes.string,
+  updateName: PropTypes.func.isRequired
+};
 
 export default Title;

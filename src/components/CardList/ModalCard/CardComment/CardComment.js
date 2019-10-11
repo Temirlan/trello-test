@@ -1,5 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import styles from "./CardComment.module.css";
+
 import AddComment from "../../../CommentList/AddComment/AddComment";
 
 class CardComment extends React.Component {
@@ -59,5 +62,11 @@ class CardComment extends React.Component {
     );
   };
 }
+
+CardComment.propTypes = {
+  userName: PropTypes.string.isRequired,
+  addCommentCard: PropTypes.func.isRequired,
+  renderCommentList: PropTypes.func.isRequired
+};
 
 export default CardComment;

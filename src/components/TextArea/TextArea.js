@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class TextArea extends React.Component {
   constructor(props) {
@@ -33,5 +34,11 @@ class TextArea extends React.Component {
     );
   }
 }
+
+TextArea.propTypes = {
+  placeholder: PropTypes.string,
+  setText: PropTypes.func.isRequired,
+  handleText: PropTypes.func
+};
 
 export default TextArea;

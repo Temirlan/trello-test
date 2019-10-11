@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import styles from "./Card.module.css";
 
 class Card extends React.Component {
@@ -42,5 +44,11 @@ class Card extends React.Component {
     );
   }
 }
+
+Card.propTypes = {
+  card: PropTypes.object.isRequired,
+  deleteCard: PropTypes.func.isRequired,
+  renderModalCard: PropTypes.func.isRequired
+};
 
 export default Card;

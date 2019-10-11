@@ -1,5 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import styles from "./Board.module.css";
+
 import Title from "../../Title/Title";
 import AddCard from "../AddCard/AddCard";
 
@@ -50,5 +53,12 @@ class Board extends React.Component {
     );
   };
 }
+
+Board.propTypes = {
+  board: PropTypes.object.isRequired,
+  updateBoardName: PropTypes.func.isRequired,
+  addCard: PropTypes.func.isRequired,
+  renderCardList: PropTypes.func.isRequired
+};
 
 export default Board;
