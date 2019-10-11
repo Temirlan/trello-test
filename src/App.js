@@ -279,9 +279,10 @@ class App extends React.Component {
   render = () => {
     return (
       <div className="App">
-        {!this.state.auth ? (
+        {!this.state.auth && (
           <Popup setUserName={this.setUserName} setAuth={this.setAuth} />
-        ) : (
+        )}
+        {this.state.auth && (
           <BoardList
             userName={this.state.userName}
             boards={this.state.boards}
