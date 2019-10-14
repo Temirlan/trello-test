@@ -14,7 +14,13 @@ import Comment from "./components/CommentList/Comment/Comment";
 
 import { connect } from "react-redux";
 
-import { getBoards } from "./redux/actions/boards";
+import {
+  getBoards,
+  updateBoardName,
+  addCard,
+  deleteCard,
+  updateCardName
+} from "./redux/actions/boards";
 
 class App extends React.Component {
   constructor(props) {
@@ -260,84 +266,103 @@ class App extends React.Component {
       <div className="App">
         {!this.props.auth && <Popup />}
         {this.props.auth && (
-          <BoardList />
-          //   <BoardList
-          //   renderBoard={board => (
-          //     <Board
-          //       board={board}
-          //       updateBoardName={name => this.updateBoardName(name, board.id)}
-          //       addCard={name => this.addCard(name, board.id)}
-          //       renderCardList={cards => (
-          //         <CardList
-          //           cards={cards}
-          //           renderCard={card => (
-          //             <Card
-          //               card={card}
-          //               deleteCard={() => this.deleteCard(board.id, card.id)}
-          //               renderModalCard={() => (
-          //                 <ModalCard
-          //                   card={card}
-          //                   updateCardName={name =>
-          //                     this.updateCardName(name, board.id, card.id)
-          //                   }
-          //                   renderCardDescription={description => (
-          //                     <CardDescription
-          //                       description={description}
-          //                       addCardDescription={text =>
-          //                         this.addCardDescription(
-          //                           text,
-          //                           board.id,
-          //                           card.id
-          //                         )
-          //                       }
-          //                     />
-          //                   )}
-          //                   renderCardComment={comments => (
-          //                     <CardComment
-          //                       userName={this.state.userName}
-          //                       addCommentCard={textComment =>
-          //                         this.addCommentCard(
-          //                           textComment,
-          //                           board.id,
-          //                           card.id
-          //                         )
-          //                       }
-          //                       renderCommentList={() => (
-          //                         <CommentList
-          //                           comments={comments}
-          //                           renderComment={comment => (
-          //                             <Comment
-          //                               comment={comment}
-          //                               updateCommentCard={changeTextComent =>
-          //                                 this.updateCommentCard(
-          //                                   changeTextComent,
-          //                                   board.id,
-          //                                   card.id,
-          //                                   comment.id
-          //                                 )
-          //                               }
-          //                               deleteCommentCard={() =>
-          //                                 this.deleteCommentCard(
-          //                                   board.id,
-          //                                   card.id,
-          //                                   comment.id
-          //                                 )
-          //                               }
-          //                             />
-          //                           )}
-          //                         />
-          //                       )}
-          //                     />
-          //                   )}
-          //                 />
-          //               )}
-          //             />
-          //           )}
-          //         />
-          //       )}
-          //     />
-          //   )}
-          // />
+          <BoardList
+            renderBoard={board => (
+              <Board
+                board={board}
+                updateBoardName={name =>
+                  this.props.updateBoardName({
+                    name,
+                    idBoard: board.id
+                  })
+                }
+                addCard={name =>
+                  this.props.addCard({
+                    name,
+                    idBoard: board.id,
+                    userName: this.props.userName
+                  })
+                }
+                renderCardList={cards => (
+                  <CardList
+                    cards={cards}
+                    renderCard={card => (
+                      <Card
+                        card={card}
+                        deleteCard={() =>
+                          this.props.deleteCard({
+                            idBoard: board.id,
+                            idCard: card.id
+                          })
+                        }
+                        renderModalCard={() => (
+                          <ModalCard
+                            card={card}
+                            updateCardName={name =>
+                              this.props.updateCardName({
+                                name,
+                                idBoard: board.id,
+                                idCard: card.id
+                              })
+                            }
+                            renderCardDescription={description => (
+                              <CardDescription
+                                description={description}
+                                addCardDescription={text =>
+                                  this.addCardDescription(
+                                    text,
+                                    board.id,
+                                    card.id
+                                  )
+                                }
+                              />
+                            )}
+                            renderCardComment={comments => (
+                              <CardComment
+                                userName={this.state.userName}
+                                addCommentCard={textComment =>
+                                  this.addCommentCard(
+                                    textComment,
+                                    board.id,
+                                    card.id
+                                  )
+                                }
+                                renderCommentList={() => (
+                                  <CommentList
+                                    comments={comments}
+                                    renderComment={comment => (
+                                      <Comment
+                                        comment={comment}
+                                        updateCommentCard={changeTextComent =>
+                                          this.updateCommentCard(
+                                            changeTextComent,
+                                            board.id,
+                                            card.id,
+                                            comment.id
+                                          )
+                                        }
+                                        deleteCommentCard={() =>
+                                          this.deleteCommentCard(
+                                            board.id,
+                                            card.id,
+                                            comment.id
+                                          )
+                                        }
+                                      />
+                                    )}
+                                  />
+                                )}
+                              />
+                            )}
+                          />
+                        )}
+                      />
+                    )}
+                  />
+                )}
+              />
+            )}
+          />
         )}
       </div>
     );
@@ -351,7 +376,13 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = { getBoards };
+const mapDispatchToProps = {
+  getBoards,
+  updateBoardName,
+  addCard,
+  deleteCard,
+  updateCardName
+};
 
 export default connect(
   mapStateToProps,

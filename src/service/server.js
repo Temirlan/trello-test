@@ -70,3 +70,28 @@ export const deleteCard = (boards, { idBoard, idCard }) => {
 
   return deletedBoards;
 };
+
+export const updateCardName = (boards, { name, idBoard, idCard }) => {
+  const updatedBoards = boards.map(board => {
+    if (board.id === idBoard) {
+      return {
+        ...board,
+        cards: board.cards.map(card => {
+          if (card.id === idCard) {
+            return {
+              ...card,
+              name
+            };
+          }
+          return card;
+        })
+      };
+    }
+
+    return board;
+  });
+
+  localStorage.setItem("boards", JSON.stringify(updatedBoards));
+
+  return updatedBoards;
+};

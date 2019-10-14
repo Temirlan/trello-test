@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { deleteCard } from "../../../redux/actions/boards";
+// import { deleteCard } from "../../../redux/actions/boards";
 
 import styles from "./Card.module.css";
 
@@ -22,10 +22,7 @@ class Card extends React.Component {
   };
 
   handleDelete = () => {
-    this.props.deleteCard({
-      idBoard: this.props.idBoard,
-      idCard: this.props.card.id
-    });
+    this.props.deleteCard();
   };
 
   renderModalCard = () => {
@@ -57,11 +54,4 @@ Card.propTypes = {
   renderModalCard: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = { deleteCard };
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Card);
+export default Card;

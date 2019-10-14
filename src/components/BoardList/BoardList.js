@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import styles from "./BoardList.module.css";
-import Board from "./Board/Board";
 
 const BoardList = props => {
   const renderBoards = () => {
     return props.boards.map(board => {
-      return <Board key={board.id} board={board} />;
+      return React.cloneElement(props.renderBoard(board), {
+        key: board.id,
+        board
+      });
     });
   };
 
