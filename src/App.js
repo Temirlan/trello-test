@@ -2,7 +2,6 @@ import React from "react";
 import Popup from "./components/Popup/Popup";
 import BoardList from "./components/BoardList/BoardList";
 import Board from "./components/BoardList/Board/Board";
-import { InitialBoards } from "./service/boards";
 
 import "./App.css";
 import Card from "./components/CardList/Card/Card";
@@ -13,41 +12,21 @@ import CardComment from "./components/CardList/ModalCard/CardComment/CardComment
 import CommentList from "./components/CommentList/CommentList";
 import Comment from "./components/CommentList/Comment/Comment";
 
+import { connect } from "react-redux";
+
+import { getBoards } from "./redux/actions/boards";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      userName: "",
-      auth: false,
       boards: []
     };
   }
 
   componentDidMount = () => {
-    const localBoards = localStorage.getItem("boards");
-
-    if (localBoards) {
-      this.setState({
-        boards: JSON.parse(localBoards)
-      });
-    } else {
-      this.setState({
-        boards: InitialBoards
-      });
-    }
-  };
-
-  setUserName = userName => {
-    this.setState({
-      userName
-    });
-  };
-
-  setAuth = auth => {
-    this.setState({
-      auth
-    });
+    this.props.getBoards();
   };
 
   updateBoardName = (name, id) => {
@@ -279,93 +258,102 @@ class App extends React.Component {
   render = () => {
     return (
       <div className="App">
-        {!this.state.auth && (
-          <Popup setUserName={this.setUserName} setAuth={this.setAuth} />
-        )}
-        {this.state.auth && (
-          <BoardList
-            userName={this.state.userName}
-            boards={this.state.boards}
-            renderBoard={board => (
-              <Board
-                board={board}
-                updateBoardName={name => this.updateBoardName(name, board.id)}
-                addCard={name => this.addCard(name, board.id)}
-                renderCardList={cards => (
-                  <CardList
-                    cards={cards}
-                    renderCard={card => (
-                      <Card
-                        card={card}
-                        deleteCard={() => this.deleteCard(board.id, card.id)}
-                        renderModalCard={() => (
-                          <ModalCard
-                            card={card}
-                            updateCardName={name =>
-                              this.updateCardName(name, board.id, card.id)
-                            }
-                            renderCardDescription={description => (
-                              <CardDescription
-                                description={description}
-                                addCardDescription={text =>
-                                  this.addCardDescription(
-                                    text,
-                                    board.id,
-                                    card.id
-                                  )
-                                }
-                              />
-                            )}
-                            renderCardComment={comments => (
-                              <CardComment
-                                userName={this.state.userName}
-                                addCommentCard={textComment =>
-                                  this.addCommentCard(
-                                    textComment,
-                                    board.id,
-                                    card.id
-                                  )
-                                }
-                                renderCommentList={() => (
-                                  <CommentList
-                                    comments={comments}
-                                    renderComment={comment => (
-                                      <Comment
-                                        comment={comment}
-                                        updateCommentCard={changeTextComent =>
-                                          this.updateCommentCard(
-                                            changeTextComent,
-                                            board.id,
-                                            card.id,
-                                            comment.id
-                                          )
-                                        }
-                                        deleteCommentCard={() =>
-                                          this.deleteCommentCard(
-                                            board.id,
-                                            card.id,
-                                            comment.id
-                                          )
-                                        }
-                                      />
-                                    )}
-                                  />
-                                )}
-                              />
-                            )}
-                          />
-                        )}
-                      />
-                    )}
-                  />
-                )}
-              />
-            )}
-          />
+        {!this.props.auth && <Popup />}
+        {this.props.auth && (
+          <BoardList />
+          //   <BoardList
+          //   renderBoard={board => (
+          //     <Board
+          //       board={board}
+          //       updateBoardName={name => this.updateBoardName(name, board.id)}
+          //       addCard={name => this.addCard(name, board.id)}
+          //       renderCardList={cards => (
+          //         <CardList
+          //           cards={cards}
+          //           renderCard={card => (
+          //             <Card
+          //               card={card}
+          //               deleteCard={() => this.deleteCard(board.id, card.id)}
+          //               renderModalCard={() => (
+          //                 <ModalCard
+          //                   card={card}
+          //                   updateCardName={name =>
+          //                     this.updateCardName(name, board.id, card.id)
+          //                   }
+          //                   renderCardDescription={description => (
+          //                     <CardDescription
+          //                       description={description}
+          //                       addCardDescription={text =>
+          //                         this.addCardDescription(
+          //                           text,
+          //                           board.id,
+          //                           card.id
+          //                         )
+          //                       }
+          //                     />
+          //                   )}
+          //                   renderCardComment={comments => (
+          //                     <CardComment
+          //                       userName={this.state.userName}
+          //                       addCommentCard={textComment =>
+          //                         this.addCommentCard(
+          //                           textComment,
+          //                           board.id,
+          //                           card.id
+          //                         )
+          //                       }
+          //                       renderCommentList={() => (
+          //                         <CommentList
+          //                           comments={comments}
+          //                           renderComment={comment => (
+          //                             <Comment
+          //                               comment={comment}
+          //                               updateCommentCard={changeTextComent =>
+          //                                 this.updateCommentCard(
+          //                                   changeTextComent,
+          //                                   board.id,
+          //                                   card.id,
+          //                                   comment.id
+          //                                 )
+          //                               }
+          //                               deleteCommentCard={() =>
+          //                                 this.deleteCommentCard(
+          //                                   board.id,
+          //                                   card.id,
+          //                                   comment.id
+          //                                 )
+          //                               }
+          //                             />
+          //                           )}
+          //                         />
+          //                       )}
+          //                     />
+          //                   )}
+          //                 />
+          //               )}
+          //             />
+          //           )}
+          //         />
+          //       )}
+          //     />
+          //   )}
+          // />
         )}
       </div>
     );
   };
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    userName: state.auth.userName,
+    auth: state.auth.auth
+  };
+};
+
+const mapDispatchToProps = { getBoards };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

@@ -1,17 +1,19 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
+import { enterText, authUser } from "../../redux/actions/auth";
 
 import styles from "./Popup.module.css";
 
 class Popup extends React.Component {
   handleChange = e => {
-    const userName = e.target.value;
+    const value = e.target.value;
 
-    this.props.setUserName(userName);
+    this.props.enterText(value);
   };
 
   handleClick = () => {
-    this.props.setAuth(true);
+    this.props.authUser();
   };
 
   render() {
@@ -32,9 +34,11 @@ class Popup extends React.Component {
   }
 }
 
-Popup.propTypes = {
-  setUserName: PropTypes.func.isRequired,
-  setAuth: PropTypes.func.isRequired
-};
+const mapStateToProps = () => ({});
 
-export default Popup;
+const mapDispatchToProps = { enterText, authUser };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Popup);

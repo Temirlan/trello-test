@@ -1,10 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import styles from "./Board.module.css";
 
 import Title from "../../Title/Title";
 import AddCard from "../AddCard/AddCard";
+
+import { updateBoardName, addCard } from "../../../redux/actions/boards";
+import CardList from "../../CardList/CardList";
+import Card from "../../CardList/Card/Card";
 
 class Board extends React.Component {
   constructor(props) {
@@ -16,11 +21,18 @@ class Board extends React.Component {
   }
 
   updateName = name => {
-    this.props.updateBoardName(name);
+    this.props.updateBoardName({
+      idBoard: this.props.board.id,
+      name
+    });
   };
 
   addCard = name => {
-    this.props.addCard(name);
+    this.props.addCard({
+      idBoard: this.props.board.id,
+      userName: this.props.userName,
+      name
+    });
   };
 
   handleCreateCard = () => {
@@ -42,7 +54,12 @@ class Board extends React.Component {
       <div className={styles.board}>
         <Title name={name} updateName={this.updateName} />
 
-        {this.renderCardList(cards)}
+        <CardList
+          cards={cards}
+          renderCard={card => (
+            <Card card={card} idBoard={this.props.board.id} />
+          )}
+        />
 
         {!this.state.toggleAddCard && (
           <button onClick={this.handleCreateCard}>Create card</button>
@@ -61,4 +78,13 @@ Board.propTypes = {
   renderCardList: PropTypes.func.isRequired
 };
 
-export default Board;
+const mapStateToProps = state => ({
+  userName: state.auth.userName
+});
+
+const mapDispatchToProps = { updateBoardName, addCard };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Board);
