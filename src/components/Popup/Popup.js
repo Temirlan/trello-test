@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { enterText, authUser } from "../../redux/actions/auth";
+import * as actions from "../../redux/actions";
 
 import styles from "./Popup.module.css";
 
@@ -36,7 +36,10 @@ class Popup extends React.Component {
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = { enterText, authUser };
+const mapDispatchToProps = {
+  enterText: actions.enterText,
+  authUser: actions.authUser
+};
 
 export default connect(
   mapStateToProps,

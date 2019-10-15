@@ -1,8 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-
-// import { deleteCard } from "../../../redux/actions/boards";
 
 import styles from "./Card.module.css";
 
