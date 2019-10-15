@@ -1,0 +1,19 @@
+.cardAddComment {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.name {
+    margin-right: 30px;
+}
+
+.writeComment {
+    padding: 10px;
+    background-color: lightcyan;
+    width: 100%;
+}
+
+.writeComment:hover {
+    cursor: pointer;
+}
