@@ -1,14 +1,14 @@
 import React from "react";
-import Popup from "./components/Popup/Popup";
-import BoardList from "./components/BoardList/BoardList";
+import Popup from "../Popup/Popup";
+import BoardList from "../BoardList/BoardList";
 
-import "./App.css";
+import "./Trello.module.css";
 
-import { getBoards } from "./redux/selectors";
+import { getBoards } from "../../redux/selectors";
 
 import { connect } from "react-redux";
 
-import BoardContainer from "./containers/BoardContainer";
+import BoardContainer from "../../containers/BoardContainer";
 
 const Trello = props => {
   return (

@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 
 import store from "./redux/store";
 import * as actions from "./redux/actions";
-import Trello from "./Trello";
+import Trello from "./components/Trello/Trello";
 
 function saveInLocalStorage() {
   const state = store.getState();
