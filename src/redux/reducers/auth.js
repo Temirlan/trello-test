@@ -15,16 +15,20 @@ export default handleActions(
         ...action.payload
       };
     },
-    [types.AUTH_USER_SUCCESS]: state => ({
-      ...state,
-      auth: true,
-      userName: state.enterText
-    }),
+    [types.AUTH_USER_SUCCESS]: state => {
+      return {
+        ...state,
+        auth: true,
+        userName: state.enterText
+      };
+    },
 
-    [types.ENTER_TEXT]: (state, action) => ({
-      ...state,
-      enterText: action.payload
-    })
+    [types.ENTER_TEXT]: (state, action) => {
+      return {
+        ...state,
+        enterText: action.payload
+      };
+    }
   },
   inititalState
 );
