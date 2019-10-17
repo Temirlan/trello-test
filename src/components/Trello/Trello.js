@@ -1,12 +1,11 @@
 import React from "react";
-import Popup from "../Popup/Popup";
-import BoardList from "../BoardList/BoardList";
+import { connect } from "react-redux";
 
 import "./Trello.module.css";
 
+import Popup from "../Popup/Popup";
+import BoardList from "../BoardList/BoardList";
 import { getBoards } from "../../redux/selectors";
-
-import { connect } from "react-redux";
 
 import BoardContainer from "../../containers/BoardContainer";
 
