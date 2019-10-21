@@ -1,5 +1,7 @@
 import { handleActions } from "redux-actions";
 
+import * as types from "../types";
+
 const inititalState = {
   userName: "",
   enterText: "",
@@ -8,16 +10,25 @@ const inititalState = {
 
 export default handleActions(
   {
-    AUTH_USER_SUCCESS: state => ({
-      ...state,
-      auth: true,
-      userName: state.enterText
-    }),
+    [types.INITIAL_USER]: (state, action) => {
+      return {
+        ...action.payload
+      };
+    },
+    [types.AUTH_USER_SUCCESS]: state => {
+      return {
+        ...state,
+        auth: true,
+        userName: state.enterText
+      };
+    },
 
-    ENTER_TEXT: (state, action) => ({
-      ...state,
-      enterText: action.payload
-    })
+    [types.ENTER_TEXT]: (state, action) => {
+      return {
+        ...state,
+        enterText: action.payload
+      };
+    }
   },
   inititalState
 );

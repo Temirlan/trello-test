@@ -13,12 +13,11 @@ class TextArea extends React.Component {
   handleChange = e => {
     const value = e.target.value;
 
-    this.setState(() => {
-      this.props.setText(value);
-      return {
-        text: value
-      };
+    this.setState({
+      text: value
     });
+
+    this.props.setText(value);
   };
 
   render() {

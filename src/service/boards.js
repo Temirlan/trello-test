@@ -1,22 +1,18 @@
 export const InitialBoards = [
   {
     id: 1,
-    name: "TODO",
-    cards: []
+    name: "TODO"
   },
   {
     id: 2,
-    name: "In Progress",
-    cards: []
+    name: "In Progress"
   },
   {
     id: 3,
-    name: "Testing",
-    cards: []
+    name: "Testing"
   },
   {
     id: 4,
-    name: "Done",
-    cards: []
+    name: "Done"
   }
 ];
